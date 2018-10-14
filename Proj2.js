@@ -52,9 +52,10 @@ function draw(){
 		}
 	}
 }
-function adam(){
+function adam(x, y, scale){
+	pipe(x, y, scale);
 }
-function mouseClicked()
+function mouseClicked() {
 
 	clicked = true;	
 }
@@ -168,7 +169,9 @@ function ocean(){
 	line(285,430,288,431);
 	line(284,432,286,433);
 	*/
-	adam();
+
+	adam(285, 435, 0.1);
+	
 	fill(waveShadowColor,100);
 	stroke(waveShadowColor,100);
 	beginShape();
@@ -176,7 +179,9 @@ function ocean(){
 		vertex(304,438);
 		vertex(298,423);
 	endShape();
+	
 	fill(waveUnderColor);
+	
 	beginShape();
 		curveVertex(232,429);
 		curveVertex(232,429);
@@ -186,7 +191,10 @@ function ocean(){
 		curveVertex(298,425);
 		curveVertex(298,425);
 	endShape();
+
+	
 	fillAndStroke(white);
+
 	beginShape();
 		curveVertex(279,waveY-5);
 		curveVertex(279,waveY-5);
@@ -194,6 +202,11 @@ function ocean(){
 		curveVertex(320,454);
 		curveVertex(320,454);
 	endShape();
+
+
+	
+	
+
 	stroke(waveStrokeColor);
 	line(447,430,282,waveY-6);
 }

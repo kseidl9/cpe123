@@ -10,108 +10,120 @@ let fontSize = 0.1;
 let ANIMATE = false;
 let ANIMATION_STARTED = false;
 
+const boxLeftBound = 39, boxRightBound = 349, boxTopBound = 34, boxBottomBound = 184;
+
+// (194, 109);
+let pipeOriginX = boxLeftBound + (boxRightBound - boxLeftBound) / 2; 
+let pipeOriginY = boxBottomBound + (boxTopBound - boxBottomBound) / 2;
+
+
 // Note: 
 // the pipe drawing is not parameterized, because it's part of the background and doesn't move. 
-function draw() {
-    background(254, 246, 209);
+
+
+function pipe(x, y, size) {
+    //background(254, 246, 209);
     fill(216, 193, 152)
-    ellipse(79, 41, (119 - 39), 14)
-    fill(117, 90, 74)
-    ellipse(79, 41, (107 - 54), 6)
-
-    fill(82, 43, 34);
-
-    // pipe outline
-    beginShape();
-    vertex(39, 41);
-    bezierVertex(20, 114, 35, 160, 51, 168);
-
-    // shared
-    bezierVertex(87, 190, 109, 185, 130, 184);
-    bezierVertex(188, 165, 214, 100, 256, 86);
-    bezierVertex(270, 80, 303, 65, 349, 58);
-    //end shared
     
-   //unique
-    bezierVertex(357, 58, 362, 40, 344, 43);
-    bezierVertex(288, 43, 259, 52, 198, 85)
-    bezierVertex(169, 106, 143, 120, 128, 121);
-    //end unique
-    bezierVertex(128, 88, 134, 115, 119, 41);
-    // unique
-    bezierVertex(91, 54, 65, 50, 39, 41);
-    //end unique 
-    endShape();
+    push();
+        translate(x, y);
+        scale(size);
 
+        ellipse(-115, -68, (119 - 39), 14)
+        fill(117, 90, 74)
+        ellipse(-115, -68, (107 - 54), 6)
 
-     // black shading
-    fill(15, 16, 11);
-    beginShape();
-        vertex(51, 168);
-        //shared
-        bezierVertex(87, 190, 109, 185, 130, 184);
-        bezierVertex(188, 165, 214, 100, 256, 86);
-        bezierVertex(270, 80, 303, 65, 349, 58);
-        // end shared
+        
+        // pipe outline
+        fill(82, 43, 34);
+        beginShape();
+            vertex(-155, -68);
+            bezierVertex(-174, 5, -159, 51, -143, 59);
+            // shared
+            bezierVertex(-107, 81, -85, 76, -64, 75);
+            bezierVertex(-6, 56, 20, -9, 62, -23);
+            bezierVertex(76, -29, 109, -44, 155, -51);
+            //end shared
+            
         //unique
-        bezierVertex(292, 52, 230, 85, 212, 100);
-        bezierVertex(192, 130, 150, 142, 120, 145);
-        bezierVertex(130, 129, 128, 126, 128, 121);
-        //end unique
-        vertex(128, 121);
-        bezierVertex(128, 88, 134, 115, 119, 41);
-        // unique
-        bezierVertex(105, 51, 96, 50, 90, 50);
-        bezierVertex(106, 120, 83, 166, 51, 168);
-        // end unique
-
-    endShape(CLOSE);
-
-    fill(114, 64, 46);
-    beginShape();
-    vertex(90, 50);
-    bezierVertex(106, 120, 83, 166, 51, 168);
-    bezierVertex(41, 162, 31, 140, 38, 146);
-    bezierVertex(58, 129, 67, 104, 74, 48);
-    bezierVertex(79, 50, 85, 49, 90, 48);
-    endShape();
+            bezierVertex(163, -51, 168, -69, 150, -66);
+            bezierVertex(94, -66, 65, -57, 4, -24)
+            bezierVertex(-25, -3, -51, 11, -66, 12);
+            //end unique
+            bezierVertex(-66, -21, -60, 6, -75, -68);
+            // unique
+            bezierVertex(-103, -55, -129, -59, -155, -68);
+        endShape();
 
 
+        // black shading
+        fill(15, 16, 11);
+        beginShape();
+            vertex(-143, 59);
+            //shared
+            bezierVertex(-107, 81, -85, 76, -64, 75);
+            bezierVertex(-6, 56, 20, -9, 62, -23);
+            bezierVertex(76, -29, 109, -44, 155, -51);
+            // end shared
+            //unique
+            bezierVertex(98, -57, 36, -24, 18, -9);
+            bezierVertex(-2, 21, -44, 33, -74, 36);
+            bezierVertex(-64, 20, -66, 17, -66, 12);
+            //end unique
+            vertex(-66, 12);
+            bezierVertex(-66, -21, -60, 6, -75, -68);
+            // unique
+            bezierVertex(-89, -58, -98, -59, -104, -59);
+            bezierVertex(-88, 11, -111, 57, -143, 59);
+            // end unique
+        endShape(CLOSE);
 
-    push();
-    strokeWeight(20);
-    stroke(166, 120, 86);
-    bezier(55, 55, 50, 74, 51, 102, 50, 110);
+        fill(114, 64, 46);
+
+        beginShape();
+            vertex(-104, -59);
+            bezierVertex(-88, 11, -111, 57, -143, 59);
+            bezierVertex(-153, 53, -163, 31, -156, 37);
+            bezierVertex(-136, 20, -127, -5, -120, -61);
+            bezierVertex(-115, -59, -109, -60, -104, -61);
+        endShape();
+
+
+
+        push();
+            strokeWeight(20);
+            stroke(166, 120, 86);
+            bezier(-139, -54, -144, -35, -143, -7, -144, 1);
+        pop();
+
+        push();
+            strokeWeight(10);
+            stroke(221, 192, 176);
+            bezier(-139, -57, -144, -35, -143, -7, -144, 1);
+        pop();
+
+        push();
+            textSize(fontSize)
+            textAlign(CENTER);
+            textFont('Georgia');
+        
+        
+            text(SURREALIST_TEXT, 0, 120);
+        pop();
+        if (ANIMATE) {
+            if (fontSize < 20) {
+                fontSize += 0.2;
+            }
+        }
     pop();
-
-    push();
-    strokeWeight(10);
-    stroke(221, 192, 176);
-    bezier(55, 52, 50, 74, 51, 102, 50, 110);
-    pop();
-
-	push();
-	textSize(fontSize)
-	textAlign(CENTER);
-	textFont('Georgia');
-   
-   
-	text(SURREALIST_TEXT, imageWidth / 2, 7 * imageHeight / 8);
-	pop();
-	if (ANIMATE) {
-		if (fontSize < 20) {
-			fontSize += 0.2;
-		}
-	}
 }
-
-const boxLeftBound = 39, boxRightBound = 349, boxTopBound = 34, boxBottomBound = 184;
 
 const inContainingBox = (mouseX, mouseY) => mouseX > boxLeftBound && mouseX < boxRightBound &&
  mouseY > boxTopBound && mouseY < boxBottomBound;
  
 
 function mouseReleased() {
+    console.log(inContainingBox(mouseX, mouseY));
     if (inContainingBox(mouseX, mouseY)) {
         ANIMATE = !ANIMATE;
     }
