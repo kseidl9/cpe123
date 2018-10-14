@@ -17,6 +17,7 @@ function setup(){
 	manY = 250;
 	rot = PI/3;
 	waveY = 440;
+	//before is clicked
 	waveUnderColor = white;
 	waveStrokeColor = white;
 	waveShadowColor = white;
@@ -24,43 +25,38 @@ function setup(){
 	clicked = false;
 }
 function draw(){
-	katie();
-	adam();
+	background(sand);
+	sky();
+	lightHouse();
+	redRock();
+	ocean();
+	push();
+		translate(manX,manY);
+		oceanMan();
+	pop();
+	if (mouseX > 47 && mouseX < 85 && mouseY > 270 && mouseY<500 && clicked){
+		if (manX < 180){
+			manX+=4;
+			}
+		else if ( manX > 179 && clicked){
+			if (waveY > 360){
+				for (var r = 4; r <=12; r+=4){
+					rot -= .025;
+					waveY -= 2;
+					waveUnderColor = teal;
+					waveStrokeColor = 150;
+					waveShadowColor = 110;
+					hiddenSand = sand;
+				}
+			}
+		}
+	}
 }
 function adam(){
 }
 function mouseClicked()
 
 	clicked = true;	
-}
-function katie(){
-	background(sand);
-        sky();
-        lightHouse();
-        redRock();
-        ocean();
-        push();
-                translate(manX,manY);
-                oceanMan();
-        pop();
-        if (mouseX > 47 && mouseX < 85 && mouseY > 270 && mouseY<500 && clicked){
-                if (manX < 180){
-                        manX+=4;
-                }
-                else if ( manX > 179 && clicked){
-                        if (waveY > 360){
-                                for (var r = 4; r <=12; r+=4){
-                                                rot -= .025;
-                                                waveY -= 2;
-                                                waveUnderColor = teal;
-                                                waveStrokeColor = 150;
-                                                waveShadowColor = 110;
-                                                hiddenSand = sand;
-                                }
-                        }
-                }
-        }
-
 }
 function fillAndStroke(x,y,z){
         fill(x,y,z);
