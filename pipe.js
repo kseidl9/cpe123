@@ -8,7 +8,6 @@ function setup() {
 
 let fontSize = 0.1;
 let ANIMATE = false;
-let ANIMATION_STARTED = false;
 
 const boxLeftBound = 39, boxRightBound = 349, boxTopBound = 34, boxBottomBound = 184;
 
