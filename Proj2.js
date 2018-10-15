@@ -1,7 +1,8 @@
 var peach,sand,white,teal,blu,terracotta,skin,hair,mint;
 var wavePosition,bubbleHeight,bubbleWidth;
-var manX,manY,rot, waveY,waveUnderColor,waveStrokeColor,waveShadowColor,hiddenSand;
+var manX,manY,rot,waveY,waveUnderColor,waveStrokeColor,waveShadowColor,hiddenSand;
 var clicked;
+var translateX, translateY, sceneScale;
 function setup(){
 	createCanvas(450,600);
 	peach = color(255,212,176);
@@ -17,14 +18,18 @@ function setup(){
 	manY = 250;
 	rot = PI/3;
 	waveY = 440;
-	//before is clicked
 	waveUnderColor = white;
 	waveStrokeColor = white;
 	waveShadowColor = white;
 	hiddenSand = white;
 	clicked = false;
+	sceneScale = 1;
+	translateX=0;
+	translateY=0;
 }
 function draw(){
+	scale(sceneScale);
+	translate(translateX,translateY);
 	background(sand);
 	sky();
 	lightHouse();
@@ -37,7 +42,7 @@ function draw(){
 	if (mouseX > 47 && mouseX < 85 && mouseY > 270 && mouseY<500 && clicked){
 		if (manX < 180){
 			manX+=4;
-			}
+		}
 		else if ( manX > 179 && clicked){
 			if (waveY > 360){
 				for (var r = 4; r <=12; r+=4){
@@ -48,15 +53,19 @@ function draw(){
 					waveShadowColor = 110;
 					hiddenSand = sand;
 				}
+				
+			} else if (sceneScale < 9.5){
+				sceneScale+=.5;
+				translateX-=14.4;
+				translateY-=24;
 			}
+			else {
+				ANIMATE=true;
+			} 	
 		}
 	}
 }
-function adam(x, y, scale){
-	pipe(x, y, scale);
-}
 function mouseClicked() {
-
 	clicked = true;	
 }
 function fillAndStroke(x,y,z){
@@ -151,27 +160,17 @@ function ocean(){
 	wave(343,227,107,14);
 	wave(208,254,231,40);
 	wave(2,224,63,8);
-	// b l a n k e t   w a v e //
+	// s a n d   u n d e r   p i p e //
 	fillAndStroke(hiddenSand);
 	beginShape();
 		vertex(180,436);
 		vertex(298,423);
 		vertex(313,471);
 	endShape();
+	// hides overflowing hidden wave lines
 	fillAndStroke(sand);
 	quad(180,436,196,427,321,460,340,488);
-	// k e y //
-	fill(sand);
-	/*stroke(0);
-	ellipse(274,439,3,4);
-	ellipse(277,441,3,4);
-	line(274,440,285,430);
-	line(285,430,288,431);
-	line(284,432,286,433);
-	*/
-
-	adam(285, 435, 0.1);
-	
+	// s h a d o w   f r o m   w a v e //
 	fill(waveShadowColor,100);
 	stroke(waveShadowColor,100);
 	beginShape();
@@ -179,7 +178,8 @@ function ocean(){
 		vertex(304,438);
 		vertex(298,423);
 	endShape();
-	
+	// p i p e //
+	pipe(275, 434, 0.08);
 	fill(waveUnderColor);
 	
 	beginShape();
@@ -323,7 +323,6 @@ function oceanMan(){
 		curveVertex(7,96);
 	endShape();
 	// h a i r
-	endShape();
 	fill(hair);
 	stroke(70);
 	beginShape();
