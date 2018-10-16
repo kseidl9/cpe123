@@ -54,12 +54,13 @@ function draw(){
 					hiddenSand = sand;
 				}
 				
-			} else if (sceneScale < 9.5){
+			} else if (sceneScale < 12.5){
 				sceneScale+=.5;
-				translateX-=14.4;
-				translateY-=24;
+				translateX-=11;
+				translateY-=18;
 			}
 			else {
+				frameRate(60);
 				ANIMATE=true;
 			} 	
 		}
